@@ -3,12 +3,12 @@ services:
     image: node:25-alpine
     container_name: softline_front
     working_dir: /app
-    command: sh -c "npm install && npm run dev"
-    # command: sh -c "npm run dev"
+    # command: sh -c "npm install && npm run dev"
+    command: sh -c "npm run dev"
     volumes:
       - .:/app
     ports:
-      - '3000:3000'
+      - "3000:3000"
     networks:
       - softline-network
 
