@@ -6,7 +6,7 @@ export const loginSchema = () => {
     password: z
       .string()
       .min(1, "Senha é obrigatória.")
-      .min(6, "Senha deve ter pelo menos 6 caracteres."),
+      .min(8, "Senha deve ter ao menos 8 caracteres."),
   });
 };
 
