@@ -63,15 +63,23 @@ export function DeleteModal({
       <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Tem certeza que deseja excluir?</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esta ação não pode ser desfeita.
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-[calc(var(--radius)-0.25rem)] bg-destructive/10">
+                <Trash2 className="h-5 w-5 text-destructive" />
+              </div>
+              <AlertDialogTitle>Excluir este item?</AlertDialogTitle>
+            </div>
+            <AlertDialogDescription className="text-sm">
+              Esta ação é permanente e não pode ser desfeita. Tem certeza que
+              deseja continuar?
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="border-t-0 bg-popover">
-            <AlertDialogCancel disabled={loading}>Cancelar</AlertDialogCancel>
+          <AlertDialogFooter className="gap-3 border-t-0 bg-transparent pt-4">
+            <AlertDialogCancel disabled={loading} className="border-border">
+              Cancelar
+            </AlertDialogCancel>
             <AlertDialogAction
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg"
               disabled={loading}
               onClick={handleDelete}
             >
@@ -84,6 +92,7 @@ export function DeleteModal({
                       "border-2 border-current border-t-transparent",
                     )}
                   />
+                  Excluindo...
                 </>
               ) : (
                 "Excluir"

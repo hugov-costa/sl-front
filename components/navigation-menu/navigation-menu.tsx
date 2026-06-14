@@ -18,19 +18,19 @@ export function NavigationMenuBar() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-md">
-            <Menu className="mr-2 h-6 w-6" />
+          <NavigationMenuTrigger className="text-base font-semibold gap-2 hover:bg-muted/50">
+            <Menu className="h-5 w-5" />
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="w-60">
+            <ul className="w-56 py-1">
               <ListItem href="/clients" title="Clientes">
-                <Contact />
+                <Contact className="h-4 w-4" />
               </ListItem>
               <ListItem href="/products" title="Produtos">
-                <ScanBarcode />
+                <ScanBarcode className="h-4 w-4" />
               </ListItem>
               <ListItem title="Sair" onClick={logout} disabled={loading}>
-                <LogOut />
+                <LogOut className="h-4 w-4" />
               </ListItem>
             </ul>
           </NavigationMenuContent>

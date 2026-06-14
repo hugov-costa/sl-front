@@ -9,7 +9,7 @@ export function SaveButton({ loading, className, ...props }: SaveButtonProps) {
   return (
     <Button
       className={cn(
-        "w-full md:w-auto md:justify-self-end px-5",
+        "w-full md:w-auto md:justify-self-end px-6 gap-2 font-medium shadow-md hover:shadow-lg",
         "cursor-pointer",
         className,
       )}
@@ -17,7 +17,14 @@ export function SaveButton({ loading, className, ...props }: SaveButtonProps) {
       type="submit"
       {...props}
     >
-      Salvar
+      {loading ? (
+        <>
+          <span className="mr-1 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          Salvando...
+        </>
+      ) : (
+        "Salvar"
+      )}
     </Button>
   );
 }
