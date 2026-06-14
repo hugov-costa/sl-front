@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLogin } from "./_hooks/useLogin";
 import { useLoginForm } from "./_hooks/useLoginForm";
@@ -9,13 +11,26 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { LoginEmailInput } from "./_components/email-input";
 import { LoginPasswordInput } from "./_components/password-input";
+import { useUser } from "@/contexts/user-context";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { user } = useUser();
   const form = useLoginForm();
   const { loading, login } = useLogin(form);
 
+  useEffect(() => {
+    if (user?.id) {
+      router.push("/");
+    }
+  }, [user, router]);
+
   function onSubmit(data: LoginFormValues) {
     login(data);
+  }
+
+  if (user?.id) {
+    return null;
   }
 
   return (

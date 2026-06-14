@@ -28,17 +28,18 @@ export function Providers({ children, initialUser }: ProvidersProps) {
 }
 
 function AuthInitializer() {
-  const { user, setUser } = useUser();
+  const { user, setUser, clearUser } = useUser();
   const pathname = usePathname();
 
   const isLoginPage = pathname === "/login";
 
-  const { data } = useQuery<CheckAuthResponse>({
+  const { data, isError, error } = useQuery<CheckAuthResponse>({
     queryKey: ["authenticatedUser"],
     queryFn: checkAuth,
     staleTime: 1000 * 60 * 60 * 24,
     refetchOnWindowFocus: false,
     enabled: !isLoginPage,
+    retry: false,
   });
 
   useEffect(() => {
@@ -53,6 +54,12 @@ function AuthInitializer() {
       }
     }
   }, [data, user, setUser]);
+
+  useEffect(() => {
+    if (isError && error) {
+      clearUser();
+    }
+  }, [isError, error, clearUser]);
 
   return null;
 }

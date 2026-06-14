@@ -23,13 +23,13 @@ export function NavigationMenuBar() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="w-60">
-              <ListItem href="/docs/installation" title="Clientes">
+              <ListItem href="/clients" title="Clientes">
                 <Contact />
               </ListItem>
-              <ListItem href="/docs" title="Produtos">
+              <ListItem href="/products" title="Produtos">
                 <ScanBarcode />
               </ListItem>
-              <ListItem href="/docs" title="Meu perfil">
+              <ListItem href="/profile" title="Meu perfil">
                 <User />
               </ListItem>
               <ListItem title="Sair" onClick={logout} disabled={loading}>
