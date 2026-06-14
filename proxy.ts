@@ -53,11 +53,10 @@ async function checkAuthServer(request: NextRequest): Promise<boolean> {
     }
 
     const cacheKey = accessToken.value;
-
     const cached = authCache.get(cacheKey);
 
-    if (cached !== null) {
-      return cached;
+    if (cached === true) {
+      return true;
     }
 
     const cookieHeader = cookies
@@ -74,7 +73,7 @@ async function checkAuthServer(request: NextRequest): Promise<boolean> {
 
     const isAuth = response.ok;
 
-    if (response.status === 401) {
+    if (response.status === 401 || !isAuth) {
       authCache.delete(cacheKey);
       return false;
     }

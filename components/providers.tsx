@@ -3,7 +3,7 @@
 import { QueryProvider } from "@/components/query-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { UserProvider, useUser } from "@/contexts/user-context";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { checkAuth } from "@/services/authService";
 import { CheckAuthResponse } from "@/interfaces/authResponse";
@@ -19,7 +19,7 @@ export function Providers({ children, initialUser }: ProvidersProps) {
   return (
     <QueryProvider>
       <UserProvider initialUser={initialUser}>
-        <AuthInitializer />
+        <AuthInitializerWrapper />
         {children}
         <Toaster />
       </UserProvider>
@@ -27,23 +27,31 @@ export function Providers({ children, initialUser }: ProvidersProps) {
   );
 }
 
+function AuthInitializerWrapper() {
+  const pathname = usePathname();
+  
+  if (pathname === "/login") {
+    return null;
+  }
+
+  return <AuthInitializer />;
+}
+
 function AuthInitializer() {
   const { user, setUser, clearUser } = useUser();
-  const pathname = usePathname();
+  const hasCleared = useRef(false);
 
-  const isLoginPage = pathname === "/login";
-
-  const { data, isError, error } = useQuery<CheckAuthResponse>({
+  const { data, isError } = useQuery<CheckAuthResponse>({
     queryKey: ["authenticatedUser"],
     queryFn: checkAuth,
     staleTime: 1000 * 60 * 60 * 24,
     refetchOnWindowFocus: false,
-    enabled: !isLoginPage,
     retry: false,
   });
 
   useEffect(() => {
     if (data?.user) {
+      hasCleared.current = false;
       if (!user || user.id !== data.user.id) {
         setUser({
           id: data.user.id,
@@ -56,10 +64,11 @@ function AuthInitializer() {
   }, [data, user, setUser]);
 
   useEffect(() => {
-    if (isError && error) {
+    if (isError && !hasCleared.current) {
+      hasCleared.current = true;
       clearUser();
     }
-  }, [isError, error, clearUser]);
+  }, [isError, clearUser]);
 
   return null;
 }

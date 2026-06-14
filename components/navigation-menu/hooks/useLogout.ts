@@ -1,5 +1,5 @@
 import { logout } from "@/services/authService";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { HTTPError } from "@/utils/httpError";
@@ -9,7 +9,6 @@ import { useUser } from "@/contexts/user-context";
 export function useLogout() {
   const router = useRouter();
   const { clearUser } = useUser();
-  const queryClient = useQueryClient();
 
   const mutation = useMutation<LogoutResponse, HTTPError>({
     mutationFn: async () => {
@@ -20,8 +19,6 @@ export function useLogout() {
     },
     onSuccess: () => {
       clearUser();
-      queryClient.clear();
-      toast.success("Logout realizado com sucesso.");
       router.push("/login");
     },
   });

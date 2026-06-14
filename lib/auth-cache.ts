@@ -11,7 +11,7 @@ class AuthCache {
   private lastToken: string | null = null;
 
   constructor() {
-    this.TTL = 24 * 60 * 60 * 1000;
+    this.TTL = 5 * 60 * 1000;
     this.MAX_SIZE = 100;
   }
 
