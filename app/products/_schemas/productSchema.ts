@@ -3,6 +3,7 @@ import { z } from "zod";
 export const createProductSchema = z.object({
   barcode: z
     .string("Código de barras é obrigatório.")
+    .min(1, "Código de barras é obrigatório.")
     .max(14, "Código de barras não pode exceder 14 caracteres."),
   code: z
     .number("Código é obrigatório.")

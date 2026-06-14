@@ -21,12 +21,10 @@ export function CodeInput({ disabled, form, initialValue }: CodeInputProps) {
     if (initialValue !== undefined && initialValue > 0) {
       form.setValue("code", initialValue);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialValue, form]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let stringValue = event.target.value;
-
     if (stringValue.length > 10) {
       stringValue = stringValue.slice(0, 10);
     }

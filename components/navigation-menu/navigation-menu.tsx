@@ -7,7 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Contact, Menu, ScanBarcode, User, LogOut } from "lucide-react";
+import { Contact, Menu, ScanBarcode, LogOut } from "lucide-react";
 import { ListItem } from "./list-item";
 import { useLogout } from "./hooks/useLogout";
 
@@ -28,9 +28,6 @@ export function NavigationMenuBar() {
               </ListItem>
               <ListItem href="/products" title="Produtos">
                 <ScanBarcode />
-              </ListItem>
-              <ListItem href="/profile" title="Meu perfil">
-                <User />
               </ListItem>
               <ListItem title="Sair" onClick={logout} disabled={loading}>
                 <LogOut />
