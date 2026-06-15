@@ -19,6 +19,7 @@ export function useLogout() {
     },
     onSuccess: () => {
       clearUser();
+      toast.success("Logout realizado com sucesso");
       router.push("/login");
     },
   });

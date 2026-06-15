@@ -4,6 +4,7 @@ import {
   LogoutResponse,
 } from "@/interfaces/authResponse";
 import { Login } from "@/interfaces/login";
+import { Register } from "@/interfaces/register";
 import { apiClient } from "@/lib/api-client";
 import { HttpMethodType } from "@/types/httpMethod";
 
@@ -21,6 +22,15 @@ export const login = async (data: Login): Promise<LoginResponse> => {
     errorMessage: "Erro ao realizar login.",
     method: HttpMethodType.POST,
     url: "/users/login",
+  });
+};
+
+export const register = async (data: Register): Promise<void> => {
+  return apiClient<void>({
+    body: data,
+    errorMessage: "Erro ao registrar.",
+    method: HttpMethodType.POST,
+    url: "/users",
   });
 };
 

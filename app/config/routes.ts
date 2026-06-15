@@ -1,4 +1,4 @@
-export const authenticationRoutes = ["/login"] as const;
+export const authenticationRoutes = ["/login", "/register"] as const;
 
 export function isAuthenticationRoute(pathname: string): boolean {
   return authenticationRoutes.some((route) => pathname.startsWith(route));

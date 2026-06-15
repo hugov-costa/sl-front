@@ -3,21 +3,23 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useLogin } from "./_hooks/useLogin";
-import { useLoginForm } from "./_hooks/useLoginForm";
-import { LoginFormValues } from "./_schemas/formSchema";
+import { useRegister } from "./_hooks/useRegister";
+import { useRegisterForm } from "./_hooks/useRegisterForm";
+import { RegisterFormValues } from "./_schemas/formSchema";
 import { cn } from "@/lib/utils";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
-import { LoginEmailInput } from "./_components/email-input";
-import { LoginPasswordInput } from "./_components/password-input";
+import { RegisterEmailInput } from "./_components/email-input";
+import { RegisterNameInput } from "./_components/name-input";
+import { RegisterPasswordInput } from "./_components/password-input";
+import { RegisterPasswordConfirmationInput } from "./_components/password-confirmation-input";
 import { useUser } from "@/contexts/user-context";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const { user } = useUser();
-  const form = useLoginForm();
-  const { loading, login } = useLogin(form);
+  const form = useRegisterForm();
+  const { loading, register } = useRegister(form);
 
   useEffect(() => {
     if (user?.id) {
@@ -25,8 +27,8 @@ export default function LoginPage() {
     }
   }, [user, router]);
 
-  function onSubmit(data: LoginFormValues) {
-    login(data);
+  function onSubmit(data: RegisterFormValues) {
+    register(data);
   }
 
   if (user?.id) {
@@ -39,32 +41,37 @@ export default function LoginPage() {
         <div className={cn("flex flex-col gap-6")}>
           <Card>
             <CardHeader className="text-center">
-              <CardTitle className="text-xl" id="login-form" />
+              <CardTitle className="text-xl">Criar Conta</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FieldGroup>
-                  <LoginEmailInput form={form} loading={loading} />
-                  <LoginPasswordInput form={form} loading={loading} />
+                  <RegisterEmailInput form={form} loading={loading} />
+                  <RegisterNameInput form={form} loading={loading} />
+                  <RegisterPasswordInput form={form} loading={loading} />
+                  <RegisterPasswordConfirmationInput
+                    form={form}
+                    loading={loading}
+                  />
                   <Field>
                     <Button
                       className="cursor-pointer w-full"
                       disabled={loading}
                       type="submit"
                     >
-                      Login
+                      {loading ? "Registrando..." : "Registrar"}
                     </Button>
                   </Field>
                 </FieldGroup>
               </form>
               <div className="mt-4 text-center text-sm text-muted-foreground">
-                Não tem uma conta?{" "}
+                Já tem uma conta?{" "}
                 <button
-                  onClick={() => router.push("/register")}
+                  onClick={() => router.push("/login")}
                   className="font-medium text-primary hover:underline cursor-pointer"
                   disabled={loading}
                 >
-                  Registre-se aqui
+                  Faça login aqui
                 </button>
               </div>
             </CardContent>

@@ -2,6 +2,7 @@
 
 import { QueryProvider } from "@/components/query-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { UserProvider, useUser } from "@/contexts/user-context";
 import { useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -18,19 +19,21 @@ interface ProvidersProps {
 export function Providers({ children, initialUser }: ProvidersProps) {
   return (
     <QueryProvider>
-      <UserProvider initialUser={initialUser}>
-        <AuthInitializerWrapper />
-        {children}
-        <Toaster />
-      </UserProvider>
+      <TooltipProvider>
+        <UserProvider initialUser={initialUser}>
+          <AuthInitializerWrapper />
+          {children}
+          <Toaster />
+        </UserProvider>
+      </TooltipProvider>
     </QueryProvider>
   );
 }
 
 function AuthInitializerWrapper() {
   const pathname = usePathname();
-  
-  if (pathname === "/login") {
+
+  if (pathname === "/login" || pathname === "/register") {
     return null;
   }
 
