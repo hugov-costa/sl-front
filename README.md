@@ -1,6 +1,6 @@
 # Teste técnico - Front
 
-Frontend Next.js para o sistema construído para o teste técnico.
+Frontend Next.js do sistema construído para o teste técnico.
 
 ## Setup
 
