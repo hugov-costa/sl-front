@@ -6,9 +6,10 @@ Frontend Next.js para o sistema construído para o teste técnico.
 
 ### Variáveis de Ambiente
 
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000
-API_URL_SERVER=http://localhost:8000
+Antes de buildar a imagem da aplicação, é necessário gerar as variáveis de ambiente:
+
+```bash
+cp .env.example .env
 ```
 
 ### Docker
